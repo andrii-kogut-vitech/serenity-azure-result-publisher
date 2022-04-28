@@ -59,7 +59,8 @@ class DevAzureClient extends RestClient {
             "name": testRunName,
             "plan": {
                 "id": planId
-            }
+            },
+            "automated": true
         }
         let headers = JSON.parse(JSON.stringify(this.headers))
         headers["Content-Type"]="application/json"

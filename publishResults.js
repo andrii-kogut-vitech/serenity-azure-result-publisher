@@ -18,7 +18,8 @@ class PublishResults {
         'SUCCESS': 'Passed',
         'ERROR': 'Failed',
         'FAILURE': 'Failed',
-        'SKIPPED': ''
+        'SKIPPED': 'NotExecuted',
+        'IGNORED': 'NotApplicable'
     };
 
 
@@ -89,10 +90,11 @@ class PublishResults {
                 let testSteps = testCaseObject.children;
                 let testPointId = this.azure.getTestPoints(suiteId, testCaseKey)
                 result.push(this.addResult(testCaseName, testCaseKey, testPointId, suiteId, testCaseObject))
-
-                testSteps.forEach(step => {
-                    steps.push(this.addStep(step.description))
-                });
+                if (testSteps) {
+                    testSteps.forEach(step => {
+                        steps.push(this.addStep(step.description))
+                    });
+                }
                 this.azure.addStepsToTestCase(testCaseKey, steps)
             }
         }
